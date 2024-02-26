@@ -28,7 +28,7 @@ public class BotBlocker extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        timeLimit = getConfig().getInt("time-limit", 20);  // Default to 20 seconds
+        timeLimit = getConfig().getInt("time-limit", 5);  // Default to 5 seconds
         Bukkit.getPluginManager().registerEvents(this, this);
 
         playersFile = new File(getDataFolder(), "players.yml");

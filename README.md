@@ -94,7 +94,7 @@ BotBlocker is a solution for Minecraft servers designed to limit bot intrusion. 
 ## Functionality
 
 ### Initialization
-When the server starts, BotBlocker initializes its configuration files (`config.yml` and `players.yml`). The initial default time limit for joining and leaving is set to 20 seconds. A message indicating the mod has successfully loaded with the set time limit is logged to the console.
+When the server starts, BotBlocker initializes its configuration files (`config.yml` and `players.yml`). The initial default time limit for joining and leaving is set to 5 seconds. A message indicating the mod has successfully loaded with the set time limit is logged to the console.
 
 ### Player Join
 When a player joins, if BotBlocker is enabled and the player is not already exempt from BotBlocker's checks, the mod/plugin records the player's UUID and the current time.
