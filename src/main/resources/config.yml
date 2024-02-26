@@ -1,2 +1,4 @@
 # Time limit in seconds
-time-limit: 60
+enabled: true
+time-limit: 5
+ban-message: "Bot detected. If you are a legitimate user, please contact the admin."

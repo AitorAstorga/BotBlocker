@@ -1,6 +1,6 @@
 name: BotBlocker
-main: eus.aichan.Blocker.BotBlocker
-version: 1.2
+main: ovh.aichan.botblockerminecraft.BotBlocker
+version: 1.3.0
 api-version: '1.20'
 author: aichan
 description: A plugin to ban users who connect for the first time and disconnect within a certain time limit.
@@ -8,6 +8,10 @@ commands:
   botblocker:
     description: Manages the BotBlocker plugin
     usage: |
-      /<command> enable - Enables the BotBlocker plugin
-      /<command> disable - Disables the BotBlocker plugin
-      /<command> setTimeLimit [seconds] - Sets the time limit
+      /<command> enable - Enable the BotBlocker plugin.
+      /<command> disable - Disable the BotBlocker plugin.
+      /<command> status - Show wether BotBlocker is enabled or disabled.
+      /<command> setTimeLimit [seconds] - Set the time limit for detecting bots. Default is 5 seconds.
+      /<command> getTimeLimit - Display the configured time limit for detecting bots.
+      /<command> setBanMessage [message] - Set the ban message.
+      /<command> getBanMessage - Display the configured ban message.

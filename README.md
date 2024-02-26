@@ -61,6 +61,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#compiling-this-plugin">Compiling this plugin</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -103,9 +104,13 @@ When a player joins, if BotBlocker is enabled and the player is not already exem
 When a player quits, BotBlocker calculates the duration of their connection. If this time is less than the set time limit and BotBlocker is enabled, the player is considered a bot. They get banned and a ban entry is added to the `players.yml` file. A disconnect message is sent to the player and a message is logged to the console. If the player stays longer than the time limit, they are deemed a legitimate player. Their UUID is added to the `players.yml` file as exempt.
 
 ### Commands
-* `/BotBlocker enable` - Enables BotBlocker.
-* `/BotBlocker disable` - Disables BotBlocker.
-* `/BotBlocker setTimeLimit [seconds]` - Sets the time limit for detecting bots.
+* `/BotBlocker enable` - Enable the BotBlocker plugin.
+* `/BotBlocker disable` - Disable the BotBlocker plugin.
+* `/BotBlocker status` - Show wether BotBlocker is enabled or disabled.
+* `/BotBlocker setTimeLimit [seconds]` - Set the time limit for detecting bots. Default is 5 seconds.
+* `/BotBlocker getTimeLimit` - Display the configured time limit for detecting bots.
+* `/BotBlocker setBanMessage [message]` - Set the ban message.
+* `/BotBlocker getBanMessage` - Display the configured ban message.
 
 ### Configuration Files
 BotBlocker maintains its configuration and the list of player UUIDs in `config.yml` and `players.yml` files, respectively.
@@ -141,6 +146,37 @@ To get this plugin up and running on your server, follow these steps:
 Once installed and enabled, BotBlocker works in the background without any intervention. If needed, you can adjust the bot protection parameters in the generated `config.yml` file.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Compiling this plugin
+To compile BotBlocker for Bukkit/Spigot yourself, follow these steps:
+
+1. Make sure you have Maven installed on your system. You can download it from https://maven.apache.org/download.cgi and find installation instructions at https://maven.apache.org/install.html.
+
+2. Clone this repository.
+
+3. Open your terminal or command prompt.
+
+4. Navigate to the root directory of the cloned repository.
+
+   ```
+   cd path/to/BotBlocker
+   ```
+
+5. Execute the Maven build command:
+
+   ```
+   mvn clean package
+   ```
+
+   - The `clean` command will remove any previous build outputs to ensure a fresh build.
+   - The `package` command will compile your code and package it into a JAR file.
+
+6. After the build completes, you can find the compiled JAR file in the `target` directory of the project.
+
+7. The JAR file will be named following the convention `BotBlocker-M.m.p.jar`, where `M.m.p` is the version number following [Semantic Versioning](https://semver.org/).
+
+8. You can now deploy this JAR file to your Bukkit/Spigot server's `plugins` folder.
 
 
 
