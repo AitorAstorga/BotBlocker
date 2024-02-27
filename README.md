@@ -50,6 +50,7 @@
         <li><a href="#player-join">Player Join</a></li>
         <li><a href="#player-quit">Player Quit</a></li>
         <li><a href="#commands">Commands</a></li>
+        <li><a href="#permissions">Permissions</a></li>
         <li><a href="#configuration-files">Configuration Files</a></li>
       </ul>
     </li>
@@ -112,10 +113,20 @@ When a player quits, BotBlocker calculates the duration of their connection. If 
 * `/BotBlocker setBanMessage [message]` - Set the ban message.
 * `/BotBlocker getBanMessage` - Display the configured ban message.
 
+### Permissions
+* `botblocker.enable` - Allows the user to enable the BotBlocker plugin
+* `botblocker.disable` - Allows the user to disable the BotBlocker plugin.
+* `botblocker.status` - Allows the user to see whether BotBlocker is enabled or disabled.
+* `botblocker.settimelimit` - Allows the user to set the time limit for detecting bots.
+* `botblocker.gettimelimit` - Allows the user to display the configured time limit for detecting bots.
+* `botblocker.setbanmessage` - Allows the user to set the ban message.
+* `botblocker.getbanmessage` - Allows the user to display the configured ban message.
+
 ### Configuration Files
 BotBlocker maintains its configuration and the list of player UUIDs in `config.yml` and `players.yml` files, respectively.
 
-Note: Players identified as legitimate are marked as such in the `players.yml` file and are not checked again in the future. If BotBlocker is disabled, it stops checking players for potential bot activity.
+> [!NOTE]
+> Players identified as legitimate are marked as such in the `players.yml` file and are not checked again in the future. If BotBlocker is disabled, it stops checking players for potential bot activity.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
