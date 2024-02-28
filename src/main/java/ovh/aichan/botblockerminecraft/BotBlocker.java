@@ -6,16 +6,23 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import me.confuser.banmanager.common.api.BmAPI;
+import me.confuser.banmanager.common.data.PlayerBanData;
+import me.confuser.banmanager.common.data.PlayerData;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class BotBlocker extends JavaPlugin implements Listener {
 
@@ -114,7 +121,17 @@ public class BotBlocker extends JavaPlugin implements Listener {
             long timeConnected = (System.currentTimeMillis() - joinTime) / 1000;
             if (timeConnected < timeLimit) {
                 String playerName = event.getPlayer().getName();
-                Bukkit.getBanList(Type.PROFILE).addBan(playerName, banMessage, null, "BotBlocker");
+
+                // Check if BanManager is installed and enabled
+                Plugin banManager = Bukkit.getServer().getPluginManager().getPlugin("BanManager");
+                if (banManager != null && banManager.isEnabled()) {
+                    // Use BanManager to ban the player
+                    banWithBanManager(event.getPlayer(), banMessage);
+                } else {
+                    // Fallback to Bukkit's default banning system
+                    Bukkit.getBanList(Type.PROFILE).addBan(playerName, banMessage, null, "BotBlocker");
+                }
+
                 getLogger().info("Player '" + playerName + "' was banned for disconnecting within " + timeLimit + " seconds of joining for the first time - suspected bot.");
             } else {
                 // Add the player to players.yml if it is not banned
@@ -123,6 +140,32 @@ public class BotBlocker extends JavaPlugin implements Listener {
             }
             joinTimes.remove(playerId);
         }
+    }
+
+    public void banWithBanManager(Player player, String reason) {
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            try {
+                UUID playerUuid = player.getUniqueId();
+                String playerName = player.getName();
+                
+                // Creating PlayerData for the player.
+                PlayerData playerData = new PlayerData(playerUuid, playerName);
+                
+                // Using 'BotBlocker' as the system or admin name issuing the ban
+                UUID actorUuid = UUID.randomUUID(); // This could be a specific UUID if you have one for the system/admin
+                String actorName = "BotBlocker";
+                PlayerData actorData = new PlayerData(actorUuid, actorName);
+                
+                // Construct the PlayerBanData object
+                PlayerBanData ban = new PlayerBanData(playerData, actorData, reason, false);
+                
+                // Attempt to ban the player using BanManager
+                BmAPI.ban(ban);
+            } catch (Exception e) {
+                getLogger().warning("[BotBlocker] An error occurred while trying to ban a player with BanManager. See logs for details.");
+                getLogger().log(Level.SEVERE, e.toString(), e);
+            }
+        });
     }
 
     /**
@@ -166,8 +209,8 @@ public class BotBlocker extends JavaPlugin implements Listener {
         try {
             playersCfg.save(playersFile);
         } catch (IOException e) {
-            // deepcode ignore DontUsePrintStackTrace: This debug information is useful in Minecraft
-            e.printStackTrace();
+            getLogger().warning("[BotBlocker] An error occurred while trying to save the players.yml file. See logs for details.");
+            getLogger().log(Level.SEVERE, e.toString(), e);
         }
     }
     
