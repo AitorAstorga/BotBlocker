@@ -77,6 +77,11 @@
 
 BotBlocker is a solution for Minecraft servers designed to limit bot intrusion. It is available for both Bukkit/Spigot Minecraft servers and as a Fabric mod. If a user logs out too quickly after joining (indicating they might be a bot), the user is banned. This approach limits the number of login attempts from each UUID, effectively mitigating the consequences of a bot attack.
 
+As of version 1.4.0 BotBlocker supports integration with:
+- [BanManager](https://banmanagement.com/)
+- [LuckPerms](https://luckperms.net/)
+
+
 ### Built With
 
 * ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
@@ -114,7 +119,7 @@ When a player quits, BotBlocker calculates the duration of their connection. If 
 * `/BotBlocker getBanMessage` - Display the configured ban message.
 
 ### Permissions
-* `botblocker.enable` - Allows the user to enable the BotBlocker plugin
+* `botblocker.enable` - Allows the user to enable the BotBlocker plugin.
 * `botblocker.disable` - Allows the user to disable the BotBlocker plugin.
 * `botblocker.status` - Allows the user to see whether BotBlocker is enabled or disabled.
 * `botblocker.settimelimit` - Allows the user to set the time limit for detecting bots.
