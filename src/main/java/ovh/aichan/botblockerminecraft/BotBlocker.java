@@ -166,6 +166,7 @@ public class BotBlocker extends JavaPlugin implements Listener {
         try {
             playersCfg.save(playersFile);
         } catch (IOException e) {
+            // deepcode ignore DontUsePrintStackTrace: This debug information is useful in Minecraft
             e.printStackTrace();
         }
     }
