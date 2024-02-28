@@ -15,10 +15,26 @@ public class CommandHandler {
     }
 
     /**
+     * Handle the command.
+     * @param sender Command sender
+     * @param permission Permission as defined in plugin.yml
+     * @return true if the command was handled, false otherwise
+     */
+    private boolean hasPermission(CommandSender sender, String permission) {
+        if(sender.hasPermission(permission)) {
+            return true;
+        } else {
+            sender.sendMessage("You don't have permission to use this command.");
+            return false;
+        }
+    }
+
+    /**
      * Enable the BotBlocker plugin.
      * @param sender Command sender
      */
     public void enable(CommandSender sender) {
+        if (!hasPermission(sender, "botblocker.enable")) return;
         plugin.setPluginEnabled(true);
         sender.sendMessage("BotBlocker enabled.");
         plugin.saveConfig();
@@ -29,6 +45,7 @@ public class CommandHandler {
      * @param sender Command sender
      */
     public void disable(CommandSender sender) {
+        if (!hasPermission(sender, "botblocker.disable")) return;
         plugin.setPluginEnabled(false);
         sender.sendMessage("BotBlocker disabled.");
         plugin.saveConfig();
@@ -39,6 +56,7 @@ public class CommandHandler {
      * @param sender Command sender
      */
     public void status(CommandSender sender) {
+        if (!hasPermission(sender, "botblocker.status")) return;
         sender.sendMessage("BotBlocker status: " + (plugin.isEnabled() ? "§a§lENABLED" : "§c§lDISABLED"));
     }
 
@@ -48,6 +66,7 @@ public class CommandHandler {
      * @param args Command arguments
      */
     public void setTimeLimit(CommandSender sender, String[] args) {
+        if (!hasPermission(sender, "botblocker.settimelimit")) return;
         if(args.length > 1) {
             try {
                 int timeLimit = Integer.parseInt(args[1]);
@@ -66,6 +85,7 @@ public class CommandHandler {
      * @param sender Command sender
      */
     public void getTimeLimit(CommandSender sender) {
+        if (!hasPermission(sender, "botblocker.gettimelimit")) return;
         sender.sendMessage("Time limit set to " + plugin.getTimeLimit() + " seconds.");
     }
 
@@ -75,6 +95,7 @@ public class CommandHandler {
      * @param args Command arguments
      */
     public void setBanMessage(CommandSender sender, String[] args) {
+        if (!hasPermission(sender, "botblocker.setbanmessage")) return;
         if(args.length > 1) {
             StringBuilder message = new StringBuilder();
             for(int i = 1; i < args.length; i++) {
@@ -93,6 +114,7 @@ public class CommandHandler {
      * @param sender Command sender
      */
     public void getBanMessage(CommandSender sender) {
+        if (!hasPermission(sender, "botblocker.getbanmessage")) return;
         sender.sendMessage("Ban message: " + plugin.getConfig().getString("ban-message"));
     }
 
